@@ -34,12 +34,12 @@ describe('ejs.compile(str, options)', function(){
     try {
       ejs.compile(fixture('fail.ejs'));
     } catch (err) {
-      err.message.should.include('compiling ejs');
+      err.message.should.containEql('compiling ejs');
 
       try {
         ejs.compile(fixture('fail.ejs'), { filename: 'fail.ejs' });
       } catch (err) {
-        err.message.should.include('fail.ejs');
+        err.message.should.containEql('fail.ejs');
         return;
       }
     }
@@ -139,7 +139,7 @@ describe('<%=', function(){
     ejs.render('<%= name %>', { name: "The Jones's" })
       .should.equal('The Jones&#39;s');
   })
-  
+
   it("should escape &foo_bar;", function(){
     ejs.render('<%= name %>', { name: "&foo_bar;" })
       .should.equal('&amp;foo_bar;');
@@ -157,8 +157,8 @@ describe('<%-', function(){
       ejs.compile('<h1>oops</h1><%- name ->')
       throw new Error('Expected parse failure');
     } catch (err) {
-      err.message.should.equal('Could not find matching close tag "%>".');      
-    }      
+      err.message.should.equal('Could not find matching close tag "%>".');
+    }
   })
 })
 
